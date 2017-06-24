@@ -51,8 +51,8 @@ private case object OracleDialect extends JdbcDialect {
         case _ => None
       }
     } else if (sqlType == Types.TIMESTAMP && typeName.toLowerCase() == "date") {
-      // Timestamp and date type are same data types in the versio of oracle jdbc after 10g.
-      // So we should differentiate date type from timestamp type.
+      // Timestamp and date type are the same data type in the versions of oracle
+      // jdbc after 10g. So we should differentiate date type from timestamp type.
       Option(DateType)
     } else {
       None
@@ -74,7 +74,7 @@ private case object OracleDialect extends JdbcDialect {
   }
 
   override def beforeFetch(connection: Connection, properties: Map[String, String]): Unit = {
-    // Set time format before query
+    // Set general time format before query
     val stmt = connection.createStatement()
     stmt.execute("alter session set NLS_TIMESTAMP_FORMAT = 'YYYY-MM-DD HH24:MI:SS.FF'")
     stmt.execute("alter session set NLS_DATE_FORMAT = 'YYYY-MM-DD'")
